@@ -1,14 +1,1028 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nightscout Follow - a companion app for parents and caregivers</title><meta name="description" content="A dedicated Nightscout follower view for iPhone, Apple Watch and Mac. See glucose and context at a glance."><link rel="icon" type="image/svg+xml" href="./app-icon.svg"><style>
-:root{--ns-bg:#0b0f14;--ns-panel:#141a22;--ns-ink:#e9eef3;--ns-muted:rgba(255,255,255,.42);--ns-accent:#74d4e8;--ns-high:#f0a878;--ns-low:#f07d8c;--ns-live:#7ada9c;--ns-icon-dark:#05070a;--ns-stroke:rgba(255,255,255,.12);--ns-stroke-subtle:rgba(255,255,255,.08);--ns-accent-fill:color-mix(in srgb,var(--ns-accent) 18%,transparent);--ns-accent-stroke:color-mix(in srgb,var(--ns-accent) 50%,transparent);--ns-radius:10px;--ns-radius-chip:8px;--ns-font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;--ns-mono:ui-monospace,"SF Mono",Menlo,monospace;font-family:var(--ns-font);color:var(--ns-ink);background:var(--ns-bg)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0}a{color:inherit}button{font:inherit}.wrap{max-width:1160px;margin:auto;padding:0 28px}.top{border-bottom:1px solid var(--ns-stroke)}.top .wrap{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font-weight:750;letter-spacing:-.03em;font-size:1.12rem;text-decoration:none;display:flex;align-items:center;gap:12px}.mark{display:block;width:32px;height:32px;border-radius:8px;background:var(--ns-icon-dark)}.nav{display:flex;gap:24px;font-size:.9rem;color:#aab9c2}.nav a{text-decoration:none}.nav a:hover,.policy a:hover{text-decoration:underline}.hero{padding:105px 0 86px;background:radial-gradient(circle at 77% 30%,rgba(116,212,232,.10) 0,transparent 38%),var(--ns-bg)}.heroGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center}.eyebrow{text-transform:uppercase;letter-spacing:.16em;color:var(--ns-accent);font-weight:750;font-size:.78rem}.hero h1{font-weight:300;font-size:clamp(2.6rem,5vw,4.4rem);line-height:1.02;letter-spacing:-.065em;margin:19px 0 24px;max-width:720px}.lead{font-size:1.25rem;line-height:1.55;color:#cbd7dd;max-width:570px}.actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:33px}.button{display:inline-block;background:var(--ns-accent);color:var(--ns-bg);border-radius:12px;padding:15px 22px;font-weight:750;text-decoration:none}.button.pending{background:var(--ns-panel);color:#d2e5e4;cursor:default}.hint{font-size:.86rem;color:#9daeb8}.heroVisual{height:460px;display:flex;align-items:center;justify-content:center;position:relative}.shot{background:var(--ns-panel);border:1px dashed #6d8390;color:#b7ced5;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:650;line-height:1.4;padding:18px;position:relative;overflow:hidden}.shot small{display:block;font-size:.78rem;font-weight:400;color:#a1b2bc;margin-top:8px}.phone{height:440px;width:220px;border:9px solid #34414e;border-radius:36px;box-shadow:0 30px 70px #02091180}.phone:before{content:"";position:absolute;top:12px;left:70px;width:62px;height:12px;background:#34414e;border-radius:20px}.float{position:absolute;width:177px;height:105px;border-radius:21px;right:0;bottom:40px;box-shadow:0 18px 45px #02091180}.section{padding:86px 0;border-top:1px solid var(--ns-stroke-subtle)}.section.alt{background:#10161d}.section h2{font-weight:300;font-size:clamp(1.9rem,3vw,2.8rem);letter-spacing:-.045em;line-height:1.1;margin:12px 0 18px}.sectionIntro{color:#bdcbd3;line-height:1.65;max-width:700px;font-size:1.08rem}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}.fact{padding:27px;background:var(--ns-panel);border:1px solid var(--ns-stroke-subtle);border-radius:var(--ns-radius)}.fact h3{margin:0 0 10px;font-size:1.15rem}.fact p{margin:0;color:#b0bdc5;line-height:1.6}.devices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 60px;margin-top:46px}.device h3{font-size:1.45rem;margin:0 0 10px}.device p{color:#b4c1ca;line-height:1.55;margin:0 0 22px}.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.gallery.two{grid-template-columns:repeat(2,1fr)}.gallery .shot{height:190px;border-radius:var(--ns-radius)}.gallery .tall{height:275px}.policy{max-width:840px}.policy h3{font-size:1.42rem;letter-spacing:-.02em;margin:42px 0 12px}.policy p,.policy li{color:#bbc8d0;line-height:1.72}.policy ul{padding-left:23px}.policy li{margin:6px 0}.policy strong{color:var(--ns-ink)}.policy code{color:var(--ns-accent);overflow-wrap:anywhere}.policy a{color:var(--ns-accent)}.notice{border-left:3px solid var(--ns-accent);padding:16px 22px;background:var(--ns-panel);border-radius:0 10px 10px 0;margin:32px 0}.footer{padding:34px 0;color:#9caeb8;border-top:1px solid var(--ns-stroke-subtle)}.footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer a{color:var(--ns-accent)}@media(max-width:800px){.heroGrid{grid-template-columns:1fr;gap:20px}.hero{padding:70px 0}.heroVisual{height:400px}.phone{height:370px;width:190px}.float{right:10%;bottom:16px}.facts,.devices{grid-template-columns:1fr}.gallery .shot{height:160px}.gallery .tall{height:220px}}@media(max-width:520px){.wrap{padding:0 20px}.nav{gap:12px;font-size:.82rem}.nav a:first-child{display:none}.hero h1{font-size:2.85rem}.lead{font-size:1.08rem}.heroVisual{height:390px}.float{right:0}.gallery{gap:8px}.gallery .shot{font-size:.78rem;padding:8px}.gallery .shot small{font-size:.67rem}.section{padding:68px 0}}
-.faq{max-width:840px}.faq h3{font-size:1.35rem;line-height:1.3;margin:34px 0 18px}.faq p,.faq li{font-size:1.05rem;color:#bdcbd3;line-height:1.7}.faq ul{padding-left:24px;margin:22px 0}.faq li{margin:11px 0}.faq strong{color:var(--ns-ink)}.faq .rule{color:var(--ns-ink);border-left:3px solid var(--ns-accent);padding:12px 20px;background:var(--ns-panel);border-radius:0 10px 10px 0;margin-top:26px} .shot.real{padding:0;border-style:solid;border-color:var(--ns-stroke);background:var(--ns-panel)}.shot.real img{display:block;width:100%;height:100%;object-fit:cover}.shot.phone.real img{object-fit:contain}.shot.float.real img{object-fit:cover}.iphoneGallery{grid-template-columns:repeat(2,minmax(0,1fr))}.screen{margin:0;min-width:0}.screenImage{height:255px;background:var(--ns-panel);border:1px solid var(--ns-stroke-subtle);border-radius:var(--ns-radius);overflow:hidden;display:flex;align-items:center;justify-content:center}.screenImage img{max-width:100%;max-height:100%;display:block;object-fit:contain}.screenImage.portrait{height:340px}.screenImage.portrait img{height:100%}.screenImage.landscape img{width:100%}.screenImage.watch{height:255px}.screenImage.watch img{width:100%;height:100%;object-fit:cover;object-position:center 38%}.screen figcaption{font-size:.9rem;color:#b4c1ca;margin:11px 2px 0}.gallery.two .screenImage.landscape{height:220px}@media(max-width:520px){.screenImage.portrait{height:260px}.gallery.two .screenImage.landscape{height:150px}.screenImage.watch{height:220px}} .carGallery{grid-template-columns:1fr}.screenImage.car{height:325px}.screenImage.car img{width:100%;height:100%;object-fit:contain}@media(max-width:520px){.screenImage.car{height:245px}} .hint a{color:var(--ns-accent);text-underline-offset:3px}.creator{max-width:900px}.creatorCopy{max-width:750px}.creatorCopy p{color:#bdcbd3;font-size:1.08rem;line-height:1.7;margin:0 0 20px}.creator a{color:var(--ns-accent);text-underline-offset:3px}.affiliation{border-top:1px solid var(--ns-stroke);padding-top:22px;margin-top:34px;color:#aab9c2;font-size:.9rem;line-height:1.6} </style></head><body><header class="top"><div class="wrap"><a class="brand" href="#top"><img class="mark" src="./app-icon.svg" alt="" width="32" height="32">Nightscout Follow</a><nav class="nav" aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#screens">Screens</a><a href="#privacy">Privacy policy</a></nav></div></header><main id="top"><section class="hero"><div class="wrap heroGrid"><div><div class="eyebrow">For people already using Nightscout</div><h1>Your Nightscout, at a glance.</h1><p class="lead">A simpler way for parents and caregivers to follow a Nightscout site on iPhone, Apple Watch, widgets, and Mac.</p><div class="actions"><a class="button" href="https://testflight.apple.com/join/QgSMc5Ad" target="_blank" rel="noopener noreferrer">Join the Beta on TestFlight</a><span class="hint">Requires your own <a href="https://www.nightscoutfoundation.org/" target="_blank" rel="noopener noreferrer">Nightscout site</a></span></div></div><div class="heroVisual" aria-label="Screenshot placeholders"><div class="shot phone real"><img src="./iphone-today-mg.png" alt="Nightscout Follow Today view in mg/dL on iPhone"></div><div class="shot float real"><img src="./iphone-widget-mg.png" alt="Nightscout Follow Home Screen widget in mg/dL"></div></div></div></section><section class="section alt" id="how-it-works"><div class="wrap"><div class="eyebrow">One clear job</div><h2>A dedicated view of the site you already trust.</h2><p class="sectionIntro">Connect using your Nightscout URL and a readable token. See current glucose and trend, insulin and carbs on board, recent meals and doses, loop status, and longer-term patterns including average, time in range, and GMI. The app refreshes in the background as best it can, so a number or watch complication is there when you glance.</p><div class="facts"><div class="fact"><h3>For followers</h3><p>Especially parents and caregivers who already have access to someone’s Nightscout site.</p></div><div class="fact"><h3>Read, don’t control</h3><p>It does not talk to a CGM or pump, dose insulin, or replace Dexcom Follow, Loop, or a pump app.</p></div><div class="fact"><h3>Know the limits</h3><p>Data and notifications can be late, missing, or wrong. Confirm anything important in the CGM and pump apps.</p></div></div></div></section><section class="section" id="screens"><div class="wrap"><div class="eyebrow">Where you look</div><h2>From a quick glance to the full picture.</h2><p class="sectionIntro">See the app in the places you already look. Screens show both mg/dL and mmol/L; choose your preferred unit in the app.</p><div class="devices"><div class="device"><h3>iPhone</h3><p>Full-screen views, a Home Screen widget, and both a Live Activity and widgets on the Lock Screen.</p><div class="gallery iphoneGallery"><figure class="screen"><div class="screenImage portrait"><img src="./iphone-today-mg.png" alt="Today view in mg/dL with glucose graph and status" loading="lazy"></div><figcaption>Today</figcaption></figure><figure class="screen"><div class="screenImage landscape"><img src="./iphone-widget-mg.png" alt="Glucose widget in mg/dL on an iPhone Home Screen" loading="lazy"></div><figcaption>Home Screen widget</figcaption></figure><figure class="screen"><div class="screenImage portrait"><img src="./iphone-lockscreen-mg.png" alt="Nightscout Follow Live Activity and widgets together on the iPhone Lock Screen in mg/dL" loading="lazy"></div><figcaption>Lock Screen: Live Activity + widgets</figcaption></figure><figure class="screen"><div class="screenImage portrait"><img src="./iphone-today-mmol.png" alt="Nightscout Follow Today view in mmol/L with glucose graph and recent meals" loading="lazy"></div><figcaption>Today · mmol/L</figcaption></figure><figure class="screen"><div class="screenImage portrait"><img src="./iphone-patterns-mg.png" alt="Nightscout Follow Patterns view with average glucose, GMI and time in range" loading="lazy"></div><figcaption>Patterns · mg/dL</figcaption></figure></div></div><div class="device"><h3>Mac</h3><p>A menu bar indicator for a glance and a full window when you want detail.</p><div class="gallery two"><figure class="screen"><div class="screenImage landscape"><img src="./mac-menu-bar.png" alt="Nightscout Follow glucose indicator in the Mac menu bar" loading="lazy"></div><figcaption>Menu bar indicator</figcaption></figure><figure class="screen"><div class="screenImage landscape"><img src="./mac-window.webp" alt="Nightscout Follow Mac window with timeline and glucose graph" loading="lazy"></div><figcaption>Mac window</figcaption></figure></div></div><div class="device"><h3>Apple Watch</h3><p>A complication where a glance is enough.</p><div class="gallery two"><figure class="screen"><div class="screenImage watch"><img src="./watch-photo.png" alt="Apple Watch face with glucose complication" loading="lazy"></div><figcaption>Watch complication</figcaption></figure></div></div><div class="device"><h3>CarPlay</h3><p>The Live View can appear alongside navigation, so you can glance at the current reading in the car. There is no separate CarPlay app.</p><div class="gallery carGallery"><figure class="screen"><div class="screenImage car"><img src="./carplay-live-view.webp" alt="Nightscout Follow Live View beside the map in CarPlay" loading="lazy"></div><figcaption>Live View beside navigation</figcaption></figure></div></div></div></div></section><section class="section alt"><div class="wrap"><h2>Keep your source of truth close.</h2><p class="sectionIntro">Nightscout Follow is informational and is not a medical device. A missing meal or dose here does not mean it did not happen. Silence from notifications does not mean nothing happened. Always confirm treatment decisions in your CGM and pump apps.</p></div></section><section class="section alt" id="creator"><div class="wrap creator"><div class="eyebrow">From a parent</div><h2>Why I built Nightscout Follow</h2><div class="creatorCopy"><p>My daughter was diagnosed with Type 1 when she was 8 years old. After many years, we're now fully up to speed with the best technology. We use Dexcom 7 + Omnipod Dash + Loop + Nightscout.</p><p>But as any other parents of T1D kids will know - tools for parents and caregivers are quite limited. Dexcom's Follow app is great for urgent notifications, and Nightscout is very informative to get detailed information on our laptop (or with our endocronologist), but there was a massive gap in between where we needed to know why she was going high or low - not just when - and we needed it on our phones. So I built a better Nightscout viewer for iOS.</p><p>It has been working great for us - we can see all the Loop info on our phone + live CGM readings on widgets and our watch, on our macBook menu bar and even in carPlay. If you're a parent or a caregiver, I hope this helps. I'll continue to develop and improve the app for the various technology setups. If you find a bug or missing data, just let me know by emailing me at the address below.</p></div><p class="affiliation">Nightscout Follow is an independent app. It is not affiliated with or endorsed by <a href="https://www.nightscoutfoundation.org/" target="_blank" rel="noopener noreferrer">The Nightscout Foundation</a>.</p></div></section><section class="section" id="faq"><div class="wrap faq"><div class="eyebrow">FAQ</div><h2>Frequently asked questions</h2><h3>The widget isn't up-to-date all the time.</h3><p>Only the app itself is truly live. Everything else is a best-effort copy that Apple decides when to update — which is why every surface shows how old the reading is.</p><ul><li><strong>App (open):</strong> Live. Pulls a new reading every few minutes while you're looking at it. This is the one to trust.</li><li><strong>Mac menu bar:</strong> Same as the app, but only while the Mac is awake and the app is running. Asleep means frozen.</li><li><strong>Widgets (phone, iPad, lock screen):</strong> iOS gives them a limited number of redraws a day and spends them how it likes. Usually a few minutes behind; sometimes much more on Low Power Mode or if you rarely look.</li><li><strong>Live Activity (lock screen banner):</strong> Updates while it's running, but can be throttled. The "X min ago" keeps counting even when the number doesn't change — that's the honest bit.</li><li><strong>Watch complication:</strong> The slowest. It needs your phone in range to feed it, and watchOS rations updates on top of that. Treat it as a glance, not a check.</li></ul><p class="rule">The rule for all of them: read the age, not just the number. If it's dimmed or the age is climbing, open the app.</p></div></section><section class="section" id="privacy"><div class="wrap policy"><div class="eyebrow">Effective 21 September 2026</div><h2>Privacy policy</h2><p>Nightscout Follow is a viewer. It shows data from a Nightscout site you already run. It is not a medical device. This policy describes what the app does on your devices.</p><div class="notice"><strong>In short:</strong> The app contacts only the Nightscout URL you enter over HTTPS. Credentials and recent data stay on your devices. There is no developer backend, analytics SDK, advertising, tracking pixel, or sale of data.</div>
-<h3>1. Who this covers</h3><p>This policy covers anyone who installs Nightscout Follow on iPhone, iPad, Apple Watch, or Mac. The developer does not operate a Nightscout site, create an account for you, or receive the glucose, insulin, meal, or device data displayed. That data lives on the Nightscout site whose address you enter. If it holds a child’s data, you are responsible for that site and who can access it.</p>
-<h3>2. What we do not collect</h3><p>The developer does not collect or have access to your Nightscout URL or token; glucose, treatments, insulin or carbs on board, predictions, or device status; name, email, Apple ID, contacts, location, photos, microphone, or HealthKit data; advertising identifiers; or usage analytics and recordings. There is no cloud account or login with us.</p>
-<h3>3. What stays on your devices</h3><ul><li><strong>Credentials:</strong> The site URL and readable token are stored in Keychain in an app group for widgets and watch refreshes. The Watch may keep a copy in the shared App Group as <code>watch-credentials.json</code> if WatchConnectivity is unavailable.</li><li><strong>Health data cache:</strong> Entries, treatments, device status, and related records are cached locally in SwiftData in the App Group container for offline views and refreshes.</li><li><strong>Widget snapshot:</strong> A small JSON snapshot of current reading, trend, IOB, COB, sparkline, units, and colour settings supports widgets and Live Activity.</li><li><strong>Settings:</strong> Units, colour policy, display name, meal notification preference, and similar choices live in UserDefaults, including the App Group suite.</li><li><strong>Disclaimer:</strong> Acceptance version and time stay on the device after sign-out; they record that this install accepted the notice, not your identity.</li><li><strong>Optional notes:</strong> Pod or sensor lot/serial text stays local with the session. If a matching treatment exists and your token permits writing, the app may PUT the note to that treatment on your own site. A failed write leaves it local.</li></ul><p>None of this is uploaded to the developer.</p>
-<h3>4. What leaves the device</h3><p><strong>Your Nightscout site:</strong> App, widget, background, and Watch refreshes make HTTPS requests to your URL. Paths can include <code>/api/v1/status.json</code>, <code>/api/v1/entries.json</code>, <code>/api/v1/treatments.json</code>, <code>/api/v1/devicestatus.json</code>, <code>/api/v1/profile.json</code>, and <code>/api/v2/properties/…</code>. Nightscout attaches the token as a query parameter. Your host or reverse proxy can see requests, tokens, and returned data. The app adds no developer server between you and Nightscout.</p><p><strong>Optional write:</strong> Saving a lot or serial may PUT a treatment’s <code>notes</code> field to <code>/api/v1/treatments/{id}</code> on your site. The app does not create treatments, change doses, or write glucose.</p><p><strong>Paired Watch:</strong> The phone may send the URL, token, and a glucose snapshot to your paired watch through Apple WatchConnectivity. Widgets, Live Activities, and CarPlay render on-device data; a widget refresh may contact your Nightscout URL. Opt-in meal banners are local notifications, not developer push messages.</p><p><strong>Export and camera:</strong> You may share a fixture export through Files or AirDrop yourself. The app never transmits it on its own. Optional barcode camera frames are processed on-device; you may type the lot or serial instead.</p>
-<h3>5. Background refresh</h3><p>iOS may wake the app or widget through BGAppRefresh. Each granted wake contacts your Nightscout URL and updates local data. Apple controls the schedule. A missed wake means data may be stale.</p>
-<h3>6. Apple, TestFlight, and App Store</h3><p>Apple processes install records and diagnostics under its own practices. There is no third-party crash reporter. If you elect to share a crash report with the developer, Apple may send a stack trace, app and OS version, and device model. We use it only to fix the app. Do not paste credentials into feedback. Encrypted device backups may include app data and Keychain items under your backup settings. See <a href="https://www.apple.com/legal/privacy/">Apple’s privacy policy</a>.</p>
-<h3>7. Your Nightscout host and children</h3><p>Your host separately controls its logs, backups, retention, and tokens. Use a dedicated least-privilege token: readable is enough for viewing, while write access is needed only for optional notes. The app is intended for adults with lawful access, including parents and caregivers. We do not knowingly collect children’s personal information and cannot see the site’s data. Protect the site with HTTPS and a strong token.</p>
-<h3>8. Your choices</h3><ul><li>Decline the notice and remove the app.</li><li>Sign out to remove URL and token from Keychain, local cache and widget snapshot, and request the paired Watch drop its copies. This does not alter Nightscout; disclaimer acceptance stays on the device.</li><li>Delete the app to remove its sandbox and App Group files, with Keychain removal subject to Apple’s uninstall rules.</li><li>Revoke a token in Nightscout, especially after losing a device.</li><li>Disable notifications, widgets, Live Activities, background refresh, or the Watch app in system settings.</li></ul><p>There is no developer-held data to download. Use your Nightscout site or host for data stored there.</p>
-<h3>9. Sharing, legal process, and security</h3><p>We do not sell, rent, or share health data. We cannot produce your glucose history because we do not have it. We comply with lawful requests for information we do hold, such as an email you send or a crash report Apple supplied, and no further.</p><p>Transport uses HTTPS. The token is stored in Keychain with <code>AfterFirstUnlock</code>; the cache is in the app’s shared App Group container. A token in a Nightscout query string may appear in host access logs. Prefer a dedicated token and rotate it if a device is lost. An unlocked lost phone, compromised host, or token pasted into a screenshot is outside what the app can prevent.</p>
-<h3>10. Changes and contact</h3><p>Material data-handling changes will version the in-app “Before you start” notice and show it again. The device stores the accepted version so the app knows when to ask.</p><p><strong>Contact:</strong> <a href="mailto:nsfollow@ymsdynamics.com">nsfollow@ymsdynamics.com</a><br><strong>Operator:</strong> YMS Dynamics Inc., Ontario, Canada</p><p>This app is provided as-is, for information only. It must not be used to make treatment decisions.</p></div></section></main><footer class="footer"><div class="wrap"><span>© 2026 YMS Dynamics Inc.</span><a href="#privacy">Privacy policy</a></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Nightscout Follow - a companion app for parents and caregivers</title>
+    <meta
+      name="description"
+      content="A dedicated Nightscout follower view for iPhone, Apple Watch and Mac. See glucose and context at a glance."
+    />
+    <link rel="icon" type="image/svg+xml" href="./app-icon.svg" />
+    <style>
+      :root {
+        --ns-bg: #0b0f14;
+        --ns-panel: #141a22;
+        --ns-ink: #e9eef3;
+        --ns-muted: rgba(255, 255, 255, 0.42);
+        --ns-accent: #74d4e8;
+        --ns-high: #f0a878;
+        --ns-low: #f07d8c;
+        --ns-live: #7ada9c;
+        --ns-icon-dark: #05070a;
+        --ns-stroke: rgba(255, 255, 255, 0.12);
+        --ns-stroke-subtle: rgba(255, 255, 255, 0.08);
+        --ns-accent-fill: color-mix(in srgb, var(--ns-accent) 18%, transparent);
+        --ns-accent-stroke: color-mix(in srgb, var(--ns-accent) 50%, transparent);
+        --ns-radius: 10px;
+        --ns-radius-chip: 8px;
+        --ns-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+        --ns-mono: ui-monospace, "SF Mono", Menlo, monospace;
+        font-family: var(--ns-font);
+        color: var(--ns-ink);
+        background: var(--ns-bg);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+      }
+      a {
+        color: inherit;
+      }
+      button {
+        font: inherit;
+      }
+      .wrap {
+        max-width: 1160px;
+        margin: auto;
+        padding: 0 28px;
+      }
+      .top {
+        border-bottom: 1px solid var(--ns-stroke);
+      }
+      .top .wrap {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .brand {
+        font-weight: 750;
+        letter-spacing: -0.03em;
+        font-size: 1.12rem;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .mark {
+        display: block;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: var(--ns-icon-dark);
+      }
+      .nav {
+        display: flex;
+        gap: 24px;
+        font-size: 0.9rem;
+        color: #aab9c2;
+      }
+      .nav a {
+        text-decoration: none;
+      }
+      .nav a:hover,
+      .policy a:hover {
+        text-decoration: underline;
+      }
+      .hero {
+        padding: 105px 0 86px;
+        background: radial-gradient(circle at 77% 30%, rgba(116, 212, 232, 0.1) 0, transparent 38%),
+          var(--ns-bg);
+      }
+      .heroGrid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 70px;
+        align-items: center;
+      }
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--ns-accent);
+        font-weight: 750;
+        font-size: 0.78rem;
+      }
+      .hero h1 {
+        font-weight: 300;
+        font-size: clamp(2.6rem, 5vw, 4.4rem);
+        line-height: 1.02;
+        letter-spacing: -0.065em;
+        margin: 19px 0 24px;
+        max-width: 720px;
+      }
+      .lead {
+        font-size: 1.25rem;
+        line-height: 1.55;
+        color: #cbd7dd;
+        max-width: 570px;
+      }
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-top: 33px;
+      }
+      .button {
+        display: inline-block;
+        background: var(--ns-accent);
+        color: var(--ns-bg);
+        border-radius: 12px;
+        padding: 15px 22px;
+        font-weight: 750;
+        text-decoration: none;
+      }
+      .button.pending {
+        background: var(--ns-panel);
+        color: #d2e5e4;
+        cursor: default;
+      }
+      .hint {
+        font-size: 0.86rem;
+        color: #9daeb8;
+      }
+      .heroVisual {
+        height: 460px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .shot {
+        background: var(--ns-panel);
+        border: 1px dashed #6d8390;
+        color: #b7ced5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: 650;
+        line-height: 1.4;
+        padding: 18px;
+        position: relative;
+        overflow: hidden;
+      }
+      .shot small {
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 400;
+        color: #a1b2bc;
+        margin-top: 8px;
+      }
+      .phone {
+        height: 440px;
+        width: 220px;
+        border: 9px solid #34414e;
+        border-radius: 36px;
+        box-shadow: 0 30px 70px #02091180;
+      }
+      .phone:before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        left: 70px;
+        width: 62px;
+        height: 12px;
+        background: #34414e;
+        border-radius: 20px;
+      }
+      .float {
+        position: absolute;
+        width: 177px;
+        height: 105px;
+        border-radius: 21px;
+        right: 0;
+        bottom: 40px;
+        box-shadow: 0 18px 45px #02091180;
+      }
+      .section {
+        padding: 86px 0;
+        border-top: 1px solid var(--ns-stroke-subtle);
+      }
+      .section.alt {
+        background: #10161d;
+      }
+      .section h2 {
+        font-weight: 300;
+        font-size: clamp(1.9rem, 3vw, 2.8rem);
+        letter-spacing: -0.045em;
+        line-height: 1.1;
+        margin: 12px 0 18px;
+      }
+      .sectionIntro {
+        color: #bdcbd3;
+        line-height: 1.65;
+        max-width: 700px;
+        font-size: 1.08rem;
+      }
+      .facts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 40px;
+      }
+      .fact {
+        padding: 27px;
+        background: var(--ns-panel);
+        border: 1px solid var(--ns-stroke-subtle);
+        border-radius: var(--ns-radius);
+      }
+      .fact h3 {
+        margin: 0 0 10px;
+        font-size: 1.15rem;
+      }
+      .fact p {
+        margin: 0;
+        color: #b0bdc5;
+        line-height: 1.6;
+      }
+      .devices {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 44px 60px;
+        margin-top: 46px;
+      }
+      .device h3 {
+        font-size: 1.45rem;
+        margin: 0 0 10px;
+      }
+      .device p {
+        color: #b4c1ca;
+        line-height: 1.55;
+        margin: 0 0 22px;
+      }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .gallery.two {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery .shot {
+        height: 190px;
+        border-radius: var(--ns-radius);
+      }
+      .gallery .tall {
+        height: 275px;
+      }
+      .policy {
+        max-width: 840px;
+      }
+      .policy h3 {
+        font-size: 1.42rem;
+        letter-spacing: -0.02em;
+        margin: 42px 0 12px;
+      }
+      .policy p,
+      .policy li {
+        color: #bbc8d0;
+        line-height: 1.72;
+      }
+      .policy ul {
+        padding-left: 23px;
+      }
+      .policy li {
+        margin: 6px 0;
+      }
+      .policy strong {
+        color: var(--ns-ink);
+      }
+      .policy code {
+        color: var(--ns-accent);
+        overflow-wrap: anywhere;
+      }
+      .policy a {
+        color: var(--ns-accent);
+      }
+      .notice {
+        border-left: 3px solid var(--ns-accent);
+        padding: 16px 22px;
+        background: var(--ns-panel);
+        border-radius: 0 10px 10px 0;
+        margin: 32px 0;
+      }
+      .footer {
+        padding: 34px 0;
+        color: #9caeb8;
+        border-top: 1px solid var(--ns-stroke-subtle);
+      }
+      .footer .wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .footer a {
+        color: var(--ns-accent);
+      }
+      @media (max-width: 800px) {
+        .heroGrid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        .hero {
+          padding: 70px 0;
+        }
+        .heroVisual {
+          height: 400px;
+        }
+        .phone {
+          height: 370px;
+          width: 190px;
+        }
+        .float {
+          right: 10%;
+          bottom: 16px;
+        }
+        .facts,
+        .devices {
+          grid-template-columns: 1fr;
+        }
+        .gallery .shot {
+          height: 160px;
+        }
+        .gallery .tall {
+          height: 220px;
+        }
+      }
+      @media (max-width: 520px) {
+        .wrap {
+          padding: 0 20px;
+        }
+        .nav {
+          gap: 12px;
+          font-size: 0.82rem;
+        }
+        .nav a:first-child {
+          display: none;
+        }
+        .hero h1 {
+          font-size: 2.85rem;
+        }
+        .lead {
+          font-size: 1.08rem;
+        }
+        .heroVisual {
+          height: 390px;
+        }
+        .float {
+          right: 0;
+        }
+        .gallery {
+          gap: 8px;
+        }
+        .gallery .shot {
+          font-size: 0.78rem;
+          padding: 8px;
+        }
+        .gallery .shot small {
+          font-size: 0.67rem;
+        }
+        .section {
+          padding: 68px 0;
+        }
+      }
+      .faq {
+        max-width: 840px;
+      }
+      .faq h3 {
+        font-size: 1.35rem;
+        line-height: 1.3;
+        margin: 34px 0 18px;
+      }
+      .faq p,
+      .faq li {
+        font-size: 1.05rem;
+        color: #bdcbd3;
+        line-height: 1.7;
+      }
+      .faq ul {
+        padding-left: 24px;
+        margin: 22px 0;
+      }
+      .faq li {
+        margin: 11px 0;
+      }
+      .faq strong {
+        color: var(--ns-ink);
+      }
+      .faq .rule {
+        color: var(--ns-ink);
+        border-left: 3px solid var(--ns-accent);
+        padding: 12px 20px;
+        background: var(--ns-panel);
+        border-radius: 0 10px 10px 0;
+        margin-top: 26px;
+      }
+      .shot.real {
+        padding: 0;
+        border-style: solid;
+        border-color: var(--ns-stroke);
+        background: var(--ns-panel);
+      }
+      .shot.real img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .shot.phone.real img {
+        object-fit: contain;
+      }
+      .shot.float.real img {
+        object-fit: cover;
+      }
+      .iphoneGallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .screen {
+        margin: 0;
+        min-width: 0;
+      }
+      .screenImage {
+        height: 255px;
+        background: var(--ns-panel);
+        border: 1px solid var(--ns-stroke-subtle);
+        border-radius: var(--ns-radius);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .screenImage img {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+        object-fit: contain;
+      }
+      .screenImage.portrait {
+        height: 340px;
+      }
+      .screenImage.portrait img {
+        height: 100%;
+      }
+      .screenImage.landscape img {
+        width: 100%;
+      }
+      .screenImage.watch {
+        height: 255px;
+      }
+      .screenImage.watch img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 38%;
+      }
+      .screen figcaption {
+        font-size: 0.9rem;
+        color: #b4c1ca;
+        margin: 11px 2px 0;
+      }
+      .gallery.two .screenImage.landscape {
+        height: 220px;
+      }
+      @media (max-width: 520px) {
+        .screenImage.portrait {
+          height: 260px;
+        }
+        .gallery.two .screenImage.landscape {
+          height: 150px;
+        }
+        .screenImage.watch {
+          height: 220px;
+        }
+      }
+      .carGallery {
+        grid-template-columns: 1fr;
+      }
+      .screenImage.car {
+        height: 325px;
+      }
+      .screenImage.car img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      @media (max-width: 520px) {
+        .screenImage.car {
+          height: 245px;
+        }
+      }
+      .hint a {
+        color: var(--ns-accent);
+        text-underline-offset: 3px;
+      }
+      .creator {
+        max-width: 900px;
+      }
+      .creatorCopy {
+        max-width: 750px;
+      }
+      .creatorCopy p {
+        color: #bdcbd3;
+        font-size: 1.08rem;
+        line-height: 1.7;
+        margin: 0 0 20px;
+      }
+      .creator a {
+        color: var(--ns-accent);
+        text-underline-offset: 3px;
+      }
+      .affiliation {
+        border-top: 1px solid var(--ns-stroke);
+        padding-top: 22px;
+        margin-top: 34px;
+        color: #aab9c2;
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="#top"
+          ><img class="mark" src="./app-icon.svg" alt="" width="32" height="32" />Nightscout
+          Follow</a
+        >
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#how-it-works">How it works</a><a href="#screens">Screens</a
+          ><a href="#privacy">Privacy policy</a>
+        </nav>
+      </div>
+    </header>
+    <main id="top">
+      <section class="hero">
+        <div class="wrap heroGrid">
+          <div>
+            <div class="eyebrow">For people already using Nightscout</div>
+            <h1>Your Nightscout, at a glance.</h1>
+            <p class="lead">
+              A simpler way for parents and caregivers to follow a Nightscout site on iPhone, Apple
+              Watch, widgets, and Mac.
+            </p>
+            <div class="actions">
+              <a
+                class="button"
+                href="https://testflight.apple.com/join/QgSMc5Ad"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Join the Beta on TestFlight</a
+              ><span class="hint"
+                >Requires your own
+                <a
+                  href="https://www.nightscoutfoundation.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Nightscout site</a
+                ></span
+              >
+            </div>
+          </div>
+          <div class="heroVisual" aria-label="Screenshot placeholders">
+            <div class="shot phone real">
+              <img
+                src="./iphone-today-mg.png"
+                alt="Nightscout Follow Today view in mg/dL on iPhone"
+              />
+            </div>
+            <div class="shot float real">
+              <img
+                src="./iphone-widget-mg.png"
+                alt="Nightscout Follow Home Screen widget in mg/dL"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section alt" id="how-it-works">
+        <div class="wrap">
+          <div class="eyebrow">One clear job</div>
+          <h2>A dedicated view of the site you already trust.</h2>
+          <p class="sectionIntro">
+            Connect using your Nightscout URL and a readable token. See current glucose and trend,
+            insulin and carbs on board, recent meals and doses, loop status, and longer-term
+            patterns including average, time in range, and GMI. The app refreshes in the background
+            as best it can, so a number or watch complication is there when you glance.
+          </p>
+          <div class="facts">
+            <div class="fact">
+              <h3>For followers</h3>
+              <p>
+                Especially parents and caregivers who already have access to someone’s Nightscout
+                site.
+              </p>
+            </div>
+            <div class="fact">
+              <h3>Read, don’t control</h3>
+              <p>
+                It does not talk to a CGM or pump, dose insulin, or replace Dexcom Follow, Loop, or
+                a pump app.
+              </p>
+            </div>
+            <div class="fact">
+              <h3>Know the limits</h3>
+              <p>
+                Data and notifications can be late, missing, or wrong. Confirm anything important in
+                the CGM and pump apps.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="screens">
+        <div class="wrap">
+          <div class="eyebrow">Where you look</div>
+          <h2>From a quick glance to the full picture.</h2>
+          <p class="sectionIntro">
+            See the app in the places you already look. Screens show both mg/dL and mmol/L; choose
+            your preferred unit in the app.
+          </p>
+          <div class="devices">
+            <div class="device">
+              <h3>iPhone</h3>
+              <p>
+                Full-screen views, a Home Screen widget, and both a Live Activity and widgets on the
+                Lock Screen.
+              </p>
+              <div class="gallery iphoneGallery">
+                <figure class="screen">
+                  <div class="screenImage portrait">
+                    <img
+                      src="./iphone-today-mg.png"
+                      alt="Today view in mg/dL with glucose graph and status"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Today</figcaption>
+                </figure>
+                <figure class="screen">
+                  <div class="screenImage landscape">
+                    <img
+                      src="./iphone-widget-mg.png"
+                      alt="Glucose widget in mg/dL on an iPhone Home Screen"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Home Screen widget</figcaption>
+                </figure>
+                <figure class="screen">
+                  <div class="screenImage portrait">
+                    <img
+                      src="./iphone-lockscreen-mg.png"
+                      alt="Nightscout Follow Live Activity and widgets together on the iPhone Lock Screen in mg/dL"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Lock Screen: Live Activity + widgets</figcaption>
+                </figure>
+                <figure class="screen">
+                  <div class="screenImage portrait">
+                    <img
+                      src="./iphone-today-mmol.png"
+                      alt="Nightscout Follow Today view in mmol/L with glucose graph and recent meals"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Today · mmol/L</figcaption>
+                </figure>
+                <figure class="screen">
+                  <div class="screenImage portrait">
+                    <img
+                      src="./iphone-patterns-mg.png"
+                      alt="Nightscout Follow Patterns view with average glucose, GMI and time in range"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Patterns · mg/dL</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="device">
+              <h3>Mac</h3>
+              <p>A menu bar indicator for a glance and a full window when you want detail.</p>
+              <div class="gallery two">
+                <figure class="screen">
+                  <div class="screenImage landscape">
+                    <img
+                      src="./mac-menu-bar.png"
+                      alt="Nightscout Follow glucose indicator in the Mac menu bar"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Menu bar indicator</figcaption>
+                </figure>
+                <figure class="screen">
+                  <div class="screenImage landscape">
+                    <img
+                      src="./mac-window.webp"
+                      alt="Nightscout Follow Mac window with timeline and glucose graph"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Mac window</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="device">
+              <h3>Apple Watch</h3>
+              <p>A complication where a glance is enough.</p>
+              <div class="gallery two">
+                <figure class="screen">
+                  <div class="screenImage watch">
+                    <img
+                      src="./watch-photo.png"
+                      alt="Apple Watch face with glucose complication"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Watch complication</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="device">
+              <h3>CarPlay</h3>
+              <p>
+                The Live View can appear alongside navigation, so you can glance at the current
+                reading in the car. You can also add a CarPlay widget.
+              </p>
+              <div class="gallery carGallery">
+                <figure class="screen">
+                  <div class="screenImage car">
+                    <img
+                      src="./carplay-live-view.webp"
+                      alt="Nightscout Follow Live View beside the map in CarPlay"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Live View beside navigation</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section alt">
+        <div class="wrap">
+          <h2>Keep your source of truth close.</h2>
+          <p class="sectionIntro">
+            Nightscout Follow is informational and is not a medical device. A missing meal or dose
+            here does not mean it did not happen. Silence from notifications does not mean nothing
+            happened. Always confirm treatment decisions in your CGM and pump apps.
+          </p>
+        </div>
+      </section>
+      <section class="section alt" id="creator">
+        <div class="wrap creator">
+          <div class="eyebrow">From a parent</div>
+          <h2>Why I built Nightscout Follow</h2>
+          <div class="creatorCopy">
+            <p>
+              My daughter was diagnosed with Type 1 when she was 8 years old. After many years,
+              we're now fully up to speed with the best technology. We use Dexcom 7 + Omnipod Dash +
+              Loop + Nightscout.
+            </p>
+            <p>
+              But as any other parents of T1D kids will know - tools for parents and caregivers are
+              quite limited. Dexcom's Follow app is great for urgent notifications, and Nightscout
+              is very informative to get detailed information on our laptop (or with our
+              endocronologist), but there was a massive gap in between where we needed to know why
+              she was going high or low - not just when - and we needed it on our phones. So I built
+              a better Nightscout viewer for iOS.
+            </p>
+            <p>
+              It has been working great for us - we can see all the Loop info on our phone + live
+              CGM readings on widgets and our watch, on our macBook menu bar and even in carPlay. If
+              you're a parent or a caregiver, I hope this helps. I'll continue to develop and
+              improve the app for the various technology setups. If you find a bug or missing data,
+              just let me know by emailing me at the address below.
+            </p>
+          </div>
+          <p class="affiliation">
+            Nightscout Follow is an independent app. It is not affiliated with or endorsed by
+            <a
+              href="https://www.nightscoutfoundation.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >The Nightscout Foundation</a
+            >.
+          </p>
+        </div>
+      </section>
+      <section class="section" id="faq">
+        <div class="wrap faq">
+          <div class="eyebrow">FAQ</div>
+          <h2>Frequently asked questions</h2>
+          <h3>The widget isn't up-to-date all the time.</h3>
+          <p>
+            Only the app itself is truly live. Everything else is a best-effort copy that Apple
+            decides when to update — which is why every surface shows how old the reading is.
+          </p>
+          <ul>
+            <li>
+              <strong>App (open):</strong> Live. Pulls a new reading every few minutes while you're
+              looking at it. This is the one to trust.
+            </li>
+            <li>
+              <strong>Mac menu bar:</strong> Same as the app, but only while the Mac is awake and
+              the app is running. Asleep means frozen.
+            </li>
+            <li>
+              <strong>Widgets (phone, iPad, lock screen):</strong> iOS gives them a limited number
+              of redraws a day and spends them how it likes. Usually a few minutes behind; sometimes
+              much more on Low Power Mode or if you rarely look.
+            </li>
+            <li>
+              <strong>Live Activity (lock screen banner):</strong> Updates while it's running, but
+              can be throttled. The "X min ago" keeps counting even when the number doesn't change —
+              that's the honest bit.
+            </li>
+            <li>
+              <strong>Watch complication:</strong> The slowest. It needs your phone in range to feed
+              it, and watchOS rations updates on top of that. Treat it as a glance, not a check.
+            </li>
+          </ul>
+          <p class="rule">
+            The rule for all of them: read the age, not just the number. If it's dimmed or the age
+            is climbing, open the app.
+          </p>
+        </div>
+      </section>
+      <section class="section" id="privacy">
+        <div class="wrap policy">
+          <div class="eyebrow">Effective 21 September 2026</div>
+          <h2>Privacy policy</h2>
+          <p>
+            Nightscout Follow is a viewer. It shows data from a Nightscout site you already run. It
+            is not a medical device. This policy describes what the app does on your devices.
+          </p>
+          <div class="notice">
+            <strong>In short:</strong> The app contacts only the Nightscout URL you enter over
+            HTTPS. Credentials and recent data stay on your devices. There is no developer backend,
+            analytics SDK, advertising, tracking pixel, or sale of data.
+          </div>
+          <h3>1. Who this covers</h3>
+          <p>
+            This policy covers anyone who installs Nightscout Follow on iPhone, iPad, Apple Watch,
+            or Mac. The developer does not operate a Nightscout site, create an account for you, or
+            receive the glucose, insulin, meal, or device data displayed. That data lives on the
+            Nightscout site whose address you enter. If it holds a child’s data, you are responsible
+            for that site and who can access it.
+          </p>
+          <h3>2. What we do not collect</h3>
+          <p>
+            The developer does not collect or have access to your Nightscout URL or token; glucose,
+            treatments, insulin or carbs on board, predictions, or device status; name, email, Apple
+            ID, contacts, location, photos, microphone, or HealthKit data; advertising identifiers;
+            or usage analytics and recordings. There is no cloud account or login with us.
+          </p>
+          <h3>3. What stays on your devices</h3>
+          <ul>
+            <li>
+              <strong>Credentials:</strong> The site URL and readable token are stored in Keychain
+              in an app group for widgets and watch refreshes. The Watch may keep a copy in the
+              shared App Group as <code>watch-credentials.json</code> if WatchConnectivity is
+              unavailable.
+            </li>
+            <li>
+              <strong>Health data cache:</strong> Entries, treatments, device status, and related
+              records are cached locally in SwiftData in the App Group container for offline views
+              and refreshes.
+            </li>
+            <li>
+              <strong>Widget snapshot:</strong> A small JSON snapshot of current reading, trend,
+              IOB, COB, sparkline, units, and colour settings supports widgets and Live Activity.
+            </li>
+            <li>
+              <strong>Settings:</strong> Units, colour policy, display name, meal notification
+              preference, and similar choices live in UserDefaults, including the App Group suite.
+            </li>
+            <li>
+              <strong>Disclaimer:</strong> Acceptance version and time stay on the device after
+              sign-out; they record that this install accepted the notice, not your identity.
+            </li>
+            <li>
+              <strong>Optional notes:</strong> Pod or sensor lot/serial text stays local with the
+              session. If a matching treatment exists and your token permits writing, the app may
+              PUT the note to that treatment on your own site. A failed write leaves it local.
+            </li>
+          </ul>
+          <p>None of this is uploaded to the developer.</p>
+          <h3>4. What leaves the device</h3>
+          <p>
+            <strong>Your Nightscout site:</strong> App, widget, background, and Watch refreshes make
+            HTTPS requests to your URL. Paths can include <code>/api/v1/status.json</code>,
+            <code>/api/v1/entries.json</code>, <code>/api/v1/treatments.json</code>,
+            <code>/api/v1/devicestatus.json</code>, <code>/api/v1/profile.json</code>, and
+            <code>/api/v2/properties/…</code>. Nightscout attaches the token as a query parameter.
+            Your host or reverse proxy can see requests, tokens, and returned data. The app adds no
+            developer server between you and Nightscout.
+          </p>
+          <p>
+            <strong>Optional write:</strong> Saving a lot or serial may PUT a treatment’s
+            <code>notes</code> field to <code>/api/v1/treatments/{id}</code> on your site. The app
+            does not create treatments, change doses, or write glucose.
+          </p>
+          <p>
+            <strong>Paired Watch:</strong> The phone may send the URL, token, and a glucose snapshot
+            to your paired watch through Apple WatchConnectivity. Widgets, Live Activities, and
+            CarPlay render on-device data; a widget refresh may contact your Nightscout URL. Opt-in
+            meal banners are local notifications, not developer push messages.
+          </p>
+          <p>
+            <strong>Export and camera:</strong> You may share a fixture export through Files or
+            AirDrop yourself. The app never transmits it on its own. Optional barcode camera frames
+            are processed on-device; you may type the lot or serial instead.
+          </p>
+          <h3>5. Background refresh</h3>
+          <p>
+            iOS may wake the app or widget through BGAppRefresh. Each granted wake contacts your
+            Nightscout URL and updates local data. Apple controls the schedule. A missed wake means
+            data may be stale.
+          </p>
+          <h3>6. Apple, TestFlight, and App Store</h3>
+          <p>
+            Apple processes install records and diagnostics under its own practices. There is no
+            third-party crash reporter. If you elect to share a crash report with the developer,
+            Apple may send a stack trace, app and OS version, and device model. We use it only to
+            fix the app. Do not paste credentials into feedback. Encrypted device backups may
+            include app data and Keychain items under your backup settings. See
+            <a href="https://www.apple.com/legal/privacy/">Apple’s privacy policy</a>.
+          </p>
+          <h3>7. Your Nightscout host and children</h3>
+          <p>
+            Your host separately controls its logs, backups, retention, and tokens. Use a dedicated
+            least-privilege token: readable is enough for viewing, while write access is needed only
+            for optional notes. The app is intended for adults with lawful access, including parents
+            and caregivers. We do not knowingly collect children’s personal information and cannot
+            see the site’s data. Protect the site with HTTPS and a strong token.
+          </p>
+          <h3>8. Your choices</h3>
+          <ul>
+            <li>Decline the notice and remove the app.</li>
+            <li>
+              Sign out to remove URL and token from Keychain, local cache and widget snapshot, and
+              request the paired Watch drop its copies. This does not alter Nightscout; disclaimer
+              acceptance stays on the device.
+            </li>
+            <li>
+              Delete the app to remove its sandbox and App Group files, with Keychain removal
+              subject to Apple’s uninstall rules.
+            </li>
+            <li>Revoke a token in Nightscout, especially after losing a device.</li>
+            <li>
+              Disable notifications, widgets, Live Activities, background refresh, or the Watch app
+              in system settings.
+            </li>
+          </ul>
+          <p>
+            There is no developer-held data to download. Use your Nightscout site or host for data
+            stored there.
+          </p>
+          <h3>9. Sharing, legal process, and security</h3>
+          <p>
+            We do not sell, rent, or share health data. We cannot produce your glucose history
+            because we do not have it. We comply with lawful requests for information we do hold,
+            such as an email you send or a crash report Apple supplied, and no further.
+          </p>
+          <p>
+            Transport uses HTTPS. The token is stored in Keychain with
+            <code>AfterFirstUnlock</code>; the cache is in the app’s shared App Group container. A
+            token in a Nightscout query string may appear in host access logs. Prefer a dedicated
+            token and rotate it if a device is lost. An unlocked lost phone, compromised host, or
+            token pasted into a screenshot is outside what the app can prevent.
+          </p>
+          <h3>10. Changes and contact</h3>
+          <p>
+            Material data-handling changes will version the in-app “Before you start” notice and
+            show it again. The device stores the accepted version so the app knows when to ask.
+          </p>
+          <p>
+            <strong>Contact:</strong>
+            <a href="mailto:nsfollow@ymsdynamics.com">nsfollow@ymsdynamics.com</a><br /><strong
+              >Operator:</strong
+            >
+            YMS Dynamics Inc., Ontario, Canada
+          </p>
+          <p>
+            This app is provided as-is, for information only. It must not be used to make treatment
+            decisions.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap">
+        <span>© 2026 YMS Dynamics Inc.</span><a href="#privacy">Privacy policy</a>
+      </div>
+    </footer>
+  </body>
+</html>
