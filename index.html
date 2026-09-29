@@ -605,7 +605,7 @@
       </section>
       <section class="section alt" id="how-it-works">
         <div class="wrap">
-          <div class="eyebrow">One clear job</div>
+          <div class="eyebrow">Primary job</div>
           <h2>More ways to view CGM data.</h2>
           <p class="sectionIntro">
             Connect using your Nightscout URL and a readable token (if required). See current glucose and trend,
@@ -635,6 +635,18 @@
             </div>
             
           </div>
+        </div>
+      </section>
+      <section class="section alt" id="supplies">
+        <div class="wrap">
+          <div class="eyebrow">Secondary job</div>
+          <h2>Help you keep track of important supplies like sensors and pods.</h2>
+          <p class="sectionIntro">
+            Turn on the optional Supplies tab to count your pods, sensors, and insulin. It takes
+            one off automatically at each site change and sensor start, shows how many days are
+            left, and can alert you before you run out. Supplies is optional and needs a token that
+            can write to your Nightscout site.
+          </p>
         </div>
       </section>
       <section class="section" id="screens">
@@ -702,6 +714,16 @@
                     />
                   </div>
                   <figcaption>Patterns · mg/dL</figcaption>
+                </figure>
+                <figure class="screen">
+                  <div class="screenImage portrait">
+                    <img
+                      src="./iphone-supplies.png"
+                      alt="Nightscout Follow Supplies view with pod and sensor counts, days left, and current device details"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Manage Supplies</figcaption>
                 </figure>
               </div>
             </div>
@@ -872,36 +894,45 @@
       </section>
       <section class="section" id="privacy">
         <div class="wrap policy">
-          <div class="eyebrow">Effective 21 September 2026</div>
+          <div class="eyebrow">Effective 29 September 2026</div>
           <h2>Privacy policy</h2>
           <p>
             Nightscout Follow is a viewer. It shows data from a Nightscout site you already run. It
-            is not a medical device. This policy describes what the app does on your devices.
+            is not a medical device. By default it only reads from your site. If you turn on the
+            optional Supplies tab and use a token that can write, it also saves supply records to
+            your site. This policy describes what the app does on your devices and on your site.
           </p>
           <div class="notice">
             <strong>In short:</strong> The app contacts only the Nightscout URL you enter over
             HTTPS. Credentials and recent data stay on your devices. There is no developer backend,
-            analytics SDK, advertising, tracking pixel, or sale of data.
+            analytics SDK, advertising, tracking pixel, or sale of data. The optional Supplies tab
+            writes supply counts, orders, settings, an “entered by” name, and pod or sensor box
+            details to <em>your own</em> Nightscout site, where anyone with access to that site can
+            see them. Box photos and alert settings stay on your phone.
           </div>
           <h3>1. Who this covers</h3>
           <p>
             This policy covers anyone who installs Nightscout Follow on iPhone, iPad, Apple Watch,
             or Mac. The developer does not operate a Nightscout site, create an account for you, or
-            receive the glucose, insulin, meal, or device data displayed. That data lives on the
-            Nightscout site whose address you enter. If it holds a child’s data, you are responsible
+            receive the glucose, insulin, meal, supply, or device data displayed or saved. That data
+            lives on the Nightscout site whose address you enter. If it holds a child’s data, you are responsible
             for that site and who can access it.
           </p>
           <h3>2. What we do not collect</h3>
           <p>
             The developer does not collect or have access to your Nightscout URL or token; glucose,
-            treatments, insulin or carbs on board, predictions, or device status; name, email, Apple
-            ID, contacts, location, photos, microphone, or HealthKit data; advertising identifiers;
-            or usage analytics and recordings. There is no cloud account or login with us.
+            treatments, insulin or carbs on board, predictions, or device status; supply counts,
+            orders, or settings; pod or sensor lot, serial, or expiry details; box photos; name,
+            email, Apple ID, contacts, location, photos, microphone, or HealthKit data;
+            advertising identifiers; or usage analytics and recordings. This includes the “entered
+            by” name used by Supplies, which is saved only to your own Nightscout site. There is no
+            cloud account or login with us.
           </p>
           <h3>3. What stays on your devices</h3>
           <ul>
             <li>
-              <strong>Credentials:</strong> The site URL and readable token are stored in Keychain
+              <strong>Credentials:</strong> The site URL and token (readable, or writable if you use
+              Supplies) are stored in Keychain
               in an app group for widgets and watch refreshes. The Watch may keep a copy in the
               shared App Group as <code>watch-credentials.json</code> if WatchConnectivity is
               unavailable.
@@ -928,6 +959,20 @@
               session. If a matching treatment exists and your token permits writing, the app may
               PUT the note to that treatment on your own site. A failed write leaves it local.
             </li>
+            <li>
+              <strong>Supplies cache:</strong> If you turn on Supplies, a cached copy of your supply
+              counts and the custom “entered by” name, if you set one, are kept on the device.
+            </li>
+            <li>
+              <strong>Box photos:</strong> A photo of a pod or sensor box is optional. You pick it
+              through the system photo picker, so the app receives only the photo you choose, not
+              access to your photo library. Photos are stored on the device and are not uploaded to
+              your Nightscout site or to the developer.
+            </li>
+            <li>
+              <strong>Supply alerts:</strong> Your low-supply alert preferences and the scheduled
+              local notifications stay on the device. No push server is involved.
+            </li>
           </ul>
           <p>None of this is uploaded to the developer.</p>
           <h3>4. What leaves the device</h3>
@@ -936,15 +981,78 @@
             HTTPS requests to your URL. Paths can include <code>/api/v1/status.json</code>,
             <code>/api/v1/entries.json</code>, <code>/api/v1/treatments.json</code>,
             <code>/api/v1/devicestatus.json</code>, <code>/api/v1/profile.json</code>, and
-            <code>/api/v2/properties/…</code>. Nightscout attaches the token as a query parameter.
-            Your host or reverse proxy can see requests, tokens, and returned data. The app adds no
-            developer server between you and Nightscout.
+            <code>/api/v2/properties/…</code>. If you use Supplies, the app also reads your supply
+            records and your recent pod, site, and sensor change events (up to the last 120 days),
+            and calls <code>/api/v1/verifyauth</code> to check whether your token can write.
+            Nightscout attaches the token as a query parameter. Your host or reverse proxy can see
+            requests, tokens, and returned data. The app adds no developer server between you and
+            Nightscout.
           </p>
           <p>
             <strong>Optional write:</strong> Saving a lot or serial may PUT a treatment’s
-            <code>notes</code> field to <code>/api/v1/treatments/{id}</code> on your site. The app
-            does not create treatments, change doses, or write glucose.
+            <code>notes</code> field to <code>/api/v1/treatments/{id}</code> on your site. Outside
+            of Supplies, the app does not create records, change doses, or write glucose.
           </p>
+          <p>
+            <strong>Supplies (optional, off by default):</strong> Supplies counts pods, sensors, and
+            insulin vials on hand. The app writes to your Nightscout site only after you turn
+            Supplies on, and only if your token can write. If your token is read-only, Supplies
+            cannot save to your site. What it writes:
+          </p>
+          <ul>
+            <li>
+              <strong>Supply Count and Supply Order records:</strong> supply type (pods, sensors, or
+              insulin), the count or quantity, the time, and an “entered by” name.
+            </li>
+            <li>
+              <strong>Supply Settings record:</strong> your custom labels, units per pod fill, units
+              per vial, and your order link.
+            </li>
+            <li>
+              <strong>Box details:</strong> lot, serial, expiry, product code (GTIN), and, for pods,
+              the RF address, added to the notes of the existing Site Change or Sensor Start record.
+            </li>
+          </ul>
+          <p>
+            The “entered by” name defaults to your device name. On iOS 16 and later that is usually
+            just “iPhone” unless you type a name; on Mac it is the computer name. You can change it
+            in the app.
+          </p>
+          <p>
+            <strong>These records are visible to others.</strong> Anyone with access to your
+            Nightscout site can see the supply counts, box details, and “entered by” name, including
+            another parent’s or caregiver’s phone. Box details and supply counts are health-related
+            device information, so treat them with the same care as the rest of your site’s data.
+            The developer never receives them.
+          </p>
+          <p>
+            <strong>Automatic counting:</strong> With Supplies on, the app removes one pod at each
+            Site Change or pod change, removes one sensor at each Sensor Start, and reduces insulin
+            by your set fill amount at each pod change. These counts are estimates that use the
+            events in your Nightscout site. Check them against what you actually have and do not
+            rely on them alone to know when to order.
+          </p>
+          <p>
+            <strong>Links you tap:</strong> These open only when you tap them, and the app itself
+            sends no data with them.
+          </p>
+          <ul>
+            <li>
+              <strong>Order more supplies:</strong> This opens a pharmacy link in your browser. By
+              default it is an Endor Health link, and you can change it in Supplies settings. The
+              app sends no data with it, but the destination can see the visit under its own
+              privacy policy.
+            </li>
+            <li>
+              <strong>Request a replacement:</strong> This opens the Omnipod or Dexcom support page
+              in your browser, under that company’s policy.
+            </li>
+            <li>
+              <strong>Share:</strong> For a failed device, this opens the system share sheet with
+              the lot, serial, dates, and wear time. You choose where it goes. The app does not send
+              it anywhere itself.
+            </li>
+          </ul>
           <p>
             <strong>Paired Watch:</strong> The phone may send the URL, token, and a glucose snapshot
             to your paired watch through Apple WatchConnectivity. Widgets, Live Activities, and
@@ -953,8 +1061,14 @@
           </p>
           <p>
             <strong>Export and camera:</strong> You may share a fixture export through Files or
-            AirDrop yourself. The app never transmits it on its own. Optional barcode camera frames
-            are processed on-device; you may type the lot or serial instead.
+            AirDrop yourself. The app never transmits it on its own. The box scanner uses the
+            camera and reads the code on a pod or sensor box entirely on the device; camera frames
+            are not sent anywhere. You may type the lot or serial instead.
+          </p>
+          <p>
+            <strong>Notifications:</strong> The app asks for notification permission when you turn
+            on Supplies or enable an alert. Low-supply alerts are local notifications scheduled on
+            your phone, not developer push messages.
           </p>
           <h3>5. Background refresh</h3>
           <p>
@@ -975,7 +1089,9 @@
           <p>
             Your host separately controls its logs, backups, retention, and tokens. Use a dedicated
             least-privilege token: readable is enough for viewing, while write access is needed only
-            for optional notes. The app is intended for adults with lawful access, including parents
+            for optional notes and for Supplies. Anyone with access to your site can see the
+            supply records and box details the app saves there, so share access only with people you
+            trust. The app is intended for adults with lawful access, including parents
             and caregivers. We do not knowingly collect children’s personal information and cannot
             see the site’s data. Protect the site with HTTPS and a strong token.
           </p>
@@ -993,8 +1109,21 @@
             </li>
             <li>Revoke a token in Nightscout, especially after losing a device.</li>
             <li>
-              Disable notifications, widgets, Live Activities, background refresh, or the Watch app
-              in system settings.
+              Leave Supplies off, or use a read-only token, so the app never writes supply data to
+              your site. Turning Supplies off stops new writes but does not delete records already
+              saved. Remove those in Nightscout or through your host.
+            </li>
+            <li>
+              Delete box photos, alert preferences, and the cached supply counts on the device by
+              deleting the app.
+            </li>
+            <li>
+              Skip the “Order more supplies” link, or set your own pharmacy link in Supplies
+              settings.
+            </li>
+            <li>
+              Disable notifications, camera access, widgets, Live Activities, background refresh, or
+              the Watch app in system settings.
             </li>
           </ul>
           <p>
@@ -1003,8 +1132,8 @@
           </p>
           <h3>9. Sharing, legal process, and security</h3>
           <p>
-            We do not sell, rent, or share health data. We cannot produce your glucose history
-            because we do not have it. We comply with lawful requests for information we do hold,
+            We do not sell, rent, or share health data. We cannot produce your glucose history or
+            supply records because we do not have them. We comply with lawful requests for information we do hold,
             such as an email you send or a crash report Apple supplied, and no further.
           </p>
           <p>
