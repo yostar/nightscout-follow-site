@@ -139,6 +139,14 @@
         font-weight: 750;
         text-decoration: none;
       }
+      .storeBadge {
+        display: inline-block;
+        line-height: 0;
+      }
+      .storeBadge img {
+        height: 54px;
+        width: auto;
+      }
       .button.pending {
         background: var(--ns-panel);
         color: #d2e5e4;
@@ -573,12 +581,16 @@
             </p>
             <div class="actions">
               <a
-                class="button"
+                class="storeBadge"
                 href="https://apps.apple.com/app/id6812037405"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Download on the App Store</a
-              ><span class="hint"
+                ><img
+                  src="./app-store-badge.svg"
+                  alt="Download on the App Store"
+                  width="162"
+                  height="54"
+              /></a><span class="hint"
                 >Requires your own
                 <a
                   href="https://www.nightscoutfoundation.org/"
@@ -787,6 +799,16 @@
                     />
                   </div>
                   <figcaption>Live View beside navigation</figcaption>
+                </figure>
+                <figure class="screen">
+                  <div class="screenImage car">
+                    <img
+                      src="./carplay-widget.webp"
+                      alt="Nightscout Follow widget showing glucose, trend arrow and graph on a CarPlay dashboard beside weather and music widgets"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>CarPlay widget</figcaption>
                 </figure>
               </div>
             </div>
