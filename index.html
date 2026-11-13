@@ -936,21 +936,27 @@
       </section>
       <section class="section" id="privacy">
         <div class="wrap policy">
-          <div class="eyebrow">Effective 29 September 2026</div>
+          <div class="eyebrow">Effective 12 November 2026</div>
           <h2>Privacy policy</h2>
           <p>
             Nightscout Follow is a viewer. It shows data from a Nightscout site you already run. It
             is not a medical device. By default it only reads from your site. If you turn on the
             optional Supplies tab and use a token that can write, it also saves supply records to
-            your site. This policy describes what the app does on your devices and on your site.
+            your site. If you set up the optional Ask tab with your own Anthropic API key, it sends
+            your questions and the data needed to answer them to Anthropic. This policy describes
+            what the app does on your devices, on your site, and with Anthropic.
           </p>
           <div class="notice">
-            <strong>In short:</strong> The app contacts only the Nightscout URL you enter over
-            HTTPS. Credentials and recent data stay on your devices. There is no developer backend,
+            <strong>In short:</strong> The app contacts the Nightscout URL you enter over HTTPS.
+            Credentials and recent data stay on your devices. There is no developer backend,
             analytics SDK, advertising, tracking pixel, or sale of data. The optional Supplies tab
             writes supply counts, orders, settings, an “entered by” name, and pod or sensor box
             details to <em>your own</em> Nightscout site, where anyone with access to that site can
-            see them. Box photos and alert settings stay on your phone.
+            see them. Box photos and alert settings stay on your phone. The optional Ask tab is off
+            until you add your own Anthropic API key. When you send a question, the app sends it,
+            the conversation so far, and the glucose and treatment data needed to answer it straight
+            from your device to Anthropic, the company behind Claude. Your Nightscout URL and token
+            are never sent there, and the developer never receives any of it.
           </div>
           <h3>1. Who this covers</h3>
           <p>
@@ -967,8 +973,9 @@
             orders, or settings; pod or sensor lot, serial, or expiry details; box photos; name,
             email, Apple ID, contacts, location, photos, microphone, or HealthKit data;
             advertising identifiers; or usage analytics and recordings. This includes the “entered
-            by” name used by Supplies, which is saved only to your own Nightscout site. There is no
-            cloud account or login with us.
+            by” name used by Supplies, which is saved only to your own Nightscout site. It also
+            includes your Anthropic API key, Ask conversations, the Ask profile and its notes, and
+            anything you dictate. There is no cloud account or login with us.
           </p>
           <h3>3. What stays on your devices</h3>
           <ul>
@@ -991,6 +998,7 @@
             <li>
               <strong>Settings:</strong> Units, colour policy, display name, meal notification
               preference, and similar choices live in UserDefaults, including the App Group suite.
+              The display name is also the name Ask uses in its replies.
             </li>
             <li>
               <strong>Disclaimer:</strong> Acceptance version and time stay on the device after
@@ -1015,8 +1023,26 @@
               <strong>Supply alerts:</strong> Your low-supply alert preferences and the scheduled
               local notifications stay on the device. No push server is involved.
             </li>
+            <li>
+              <strong>Anthropic API key:</strong> If you set up Ask, your key is stored in Keychain
+              on that device only. It is not synced through iCloud Keychain and is not shared with
+              the Watch or widgets.
+            </li>
+            <li>
+              <strong>Ask conversations:</strong> Stored as a file in the app’s Application Support
+              folder on the device. They are not synced between your devices.
+            </li>
+            <li>
+              <strong>Ask profile:</strong> Who reads the replies (a parent or the person with
+              diabetes), an age group, and your “Things to know” notes, including notes Ask saves
+              when you mention something lasting. The chosen Claude model and when you accepted
+              Ask’s notice are stored too. These live in UserDefaults on the device.
+            </li>
           </ul>
-          <p>None of this is uploaded to the developer.</p>
+          <p>
+            None of this is uploaded to the developer. What Ask sends to Anthropic is described
+            below.
+          </p>
           <h3>4. What leaves the device</h3>
           <p>
             <strong>Your Nightscout site:</strong> App, widget, background, and Watch refreshes make
@@ -1025,7 +1051,9 @@
             <code>/api/v1/devicestatus.json</code>, <code>/api/v1/profile.json</code>, and
             <code>/api/v2/properties/…</code>. If you use Supplies, the app also reads your supply
             records and your recent pod, site, and sensor change events (up to the last 120 days),
-            and calls <code>/api/v1/verifyauth</code> to check whether your token can write.
+            and calls <code>/api/v1/verifyauth</code> to check whether your token can write. If you
+            use Ask, the app may also read up to 30 days of entries and treatments and up to 200
+            stored profiles, so it can review patterns and when your settings changed.
             Nightscout attaches the token as a query parameter. Your host or reverse proxy can see
             requests, tokens, and returned data. The app adds no developer server between you and
             Nightscout.
@@ -1033,7 +1061,58 @@
           <p>
             <strong>Optional write:</strong> Saving a lot or serial may PUT a treatment’s
             <code>notes</code> field to <code>/api/v1/treatments/{id}</code> on your site. Outside
-            of Supplies, the app does not create records, change doses, or write glucose.
+            of Supplies, the app does not create records, change doses, or write glucose. Ask never
+            writes to your Nightscout site.
+          </p>
+          <p>
+            <strong>Ask (optional, off until you add a key):</strong> Ask answers questions about
+            your data using Claude, made by Anthropic. You create the API key in your own Anthropic
+            account, and usage is billed to that account. The app shows a notice explaining where
+            the data goes and asks you to agree before the first chat. When you send a message, the
+            app sends it to <code>api.anthropic.com</code> over HTTPS with your key, together with
+            the conversation so far and the data needed to answer. Depending on the question, that
+            can include:
+          </p>
+          <ul>
+            <li>
+              glucose readings and trends, carbs, insulin, insulin and carbs on board, Loop
+              forecasts and status, temp basals and suspensions, overrides, treatment notes, and
+              pod, site, and sensor changes, covering up to the last 30 days;
+            </li>
+            <li>
+              your basal, carb ratio, and correction factor schedules, and when they changed;
+            </li>
+            <li>
+              your units and time zone, the name used for the person with diabetes, and your Ask
+              profile: who reads the replies, the age group, and your “Things to know” notes.
+            </li>
+          </ul>
+          <p>
+            Your Nightscout URL and token are never sent to Anthropic. Anthropic processes this data
+            under its
+            <a href="https://www.anthropic.com/legal/commercial-terms" target="_blank" rel="noopener noreferrer"
+              >Commercial Terms</a
+            >
+            and
+            <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer"
+              >Privacy Policy</a
+            >. Under those terms Anthropic does not train its models on API data, but it may keep
+            it for a limited time for safety and abuse monitoring. The developer has no access to
+            your Anthropic account and never receives your questions, the replies, or the data sent
+            with them. Ask is not medical advice, will not suggest doses or settings, and is not an
+            alarm.
+          </p>
+          <p>
+            <strong>Dictation:</strong> The microphone button in Ask uses the microphone and
+            Apple’s speech recognition to turn what you say into text in the message box.
+            Recognition runs on the device when your language supports it; otherwise Apple
+            processes the audio under its own privacy policy. Audio is not saved and is not sent to
+            Anthropic or the developer. Only the text you then choose to send is.
+          </p>
+          <p>
+            <strong>Ask export:</strong> When you choose Export, the conversation is shared as text
+            through the system share sheet. You choose where it goes. The app does not send it
+            anywhere itself.
           </p>
           <p>
             <strong>Supplies (optional, off by default):</strong> Supplies counts pods, sensors, and
@@ -1124,7 +1203,9 @@
             third-party crash reporter. If you elect to share a crash report with the developer,
             Apple may send a stack trace, app and OS version, and device model. We use it only to
             fix the app. Do not paste credentials into feedback. Encrypted device backups may
-            include app data and Keychain items under your backup settings. See
+            include app data and Keychain items under your backup settings, including Ask
+            conversations. If dictation can’t run on the device, Apple’s speech recognition
+            service processes the audio. See
             <a href="https://www.apple.com/legal/privacy/">Apple’s privacy policy</a>.
           </p>
           <h3>7. Your Nightscout host and children</h3>
@@ -1135,7 +1216,9 @@
             supply records and box details the app saves there, so share access only with people you
             trust. The app is intended for adults with lawful access, including parents
             and caregivers. We do not knowingly collect children’s personal information and cannot
-            see the site’s data. Protect the site with HTTPS and a strong token.
+            see the site’s data. Protect the site with HTTPS and a strong token. Ask’s profile
+            includes an age group, and a parent or caregiver who sets up Ask chooses to send the
+            child’s data to Anthropic as described above.
           </p>
           <h3>8. Your choices</h3>
           <ul>
@@ -1164,8 +1247,21 @@
               settings.
             </li>
             <li>
-              Disable notifications, camera access, widgets, Live Activities, background refresh, or
-              the Watch app in system settings.
+              Don’t set up Ask, or remove your API key in Settings → Ask. You can also revoke the
+              key in your Anthropic account.
+            </li>
+            <li>
+              Delete one Ask conversation or all of them, edit the profile notes, or reset Ask’s
+              consent in Settings → Ask. Signing out of Nightscout does not remove the Ask key,
+              conversations, or profile; remove them in Settings → Ask or by deleting the app.
+            </li>
+            <li>
+              Data already sent to Anthropic is kept and deleted under Anthropic’s policies. The app
+              cannot delete it.
+            </li>
+            <li>
+              Disable notifications, camera, microphone, or speech recognition access, widgets, Live
+              Activities, background refresh, or the Watch app in system settings.
             </li>
           </ul>
           <p>
@@ -1174,8 +1270,9 @@
           </p>
           <h3>9. Sharing, legal process, and security</h3>
           <p>
-            We do not sell, rent, or share health data. We cannot produce your glucose history or
-            supply records because we do not have them. We comply with lawful requests for information we do hold,
+            We do not sell, rent, or share health data. If you use Ask, it is you who directs the
+            app to send data to Anthropic, using your own account. We cannot produce your glucose
+            history, supply records, or Ask conversations because we do not have them. We comply with lawful requests for information we do hold,
             such as an email you send, a message you send us on Discord, or a crash report Apple
             supplied, and no further.
           </p>
@@ -1189,7 +1286,9 @@
           <h3>10. Changes and contact</h3>
           <p>
             Material data-handling changes will version the in-app “Before you start” notice and
-            show it again. The device stores the accepted version so the app knows when to ask.
+            show it again. The device stores the accepted version so the app knows when to ask. Ask
+            has its own “Before you chat” notice, which is shown again the same way if what Ask
+            sends changes.
           </p>
           <p>
             <strong>Support:</strong>
