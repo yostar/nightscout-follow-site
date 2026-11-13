@@ -8,6 +8,40 @@
       name="description"
       content="A dedicated Nightscout follower view for iPhone, Apple Watch and Mac. See glucose and context at a glance."
     />
+    <link rel="canonical" href="https://nightscoutfollow.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nightscout Follow" />
+    <meta property="og:url" content="https://nightscoutfollow.com/" />
+    <meta
+      property="og:title"
+      content="Nightscout Follow - a companion app for parents and caregivers"
+    />
+    <meta
+      property="og:description"
+      content="A dedicated Nightscout follower view for iPhone, Apple Watch and Mac. See glucose and context at a glance."
+    />
+    <meta property="og:image" content="https://nightscoutfollow.com/og-nightscout.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Nightscout Follow: Your Nightscout, at a glance. The app's Today screen on iPhone with a Live Activity."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Nightscout Follow - a companion app for parents and caregivers"
+    />
+    <meta
+      name="twitter:description"
+      content="A dedicated Nightscout follower view for iPhone, Apple Watch and Mac. See glucose and context at a glance."
+    />
+    <meta name="twitter:image" content="https://nightscoutfollow.com/og-nightscout.png" />
+    <meta
+      name="twitter:image:alt"
+      content="Nightscout Follow: Your Nightscout, at a glance. The app's Today screen on iPhone with a Live Activity."
+    />
     <link rel="icon" type="image/svg+xml" href="./app-icon.svg" />
     <style>
       :root {
@@ -186,9 +220,9 @@
       }
       .phone {
         height: 440px;
-        width: 220px;
-        border: 9px solid #34414e;
-        border-radius: 36px;
+        width: 210px;
+        border: 3px solid #34414e;
+        border-radius: 28px;
         box-shadow: 0 30px 70px #02091180;
       }
       .phone:before {
@@ -269,15 +303,12 @@
       .gallery {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
+        gap: 48px 12px;
       }
       .gallery.two {
         grid-template-columns: repeat(2, 1fr);
       }
-      .gallery .shot {
-        height: 190px;
-        border-radius: var(--ns-radius);
-      }
+
       .gallery .tall {
         height: 275px;
       }
@@ -604,7 +635,7 @@
           <div class="heroVisual" aria-label="Screenshot placeholders">
             <div class="shot phone real">
               <img
-                src="./iphone-today-mg.png"
+                src="./iphone-today-mmol.webp"
                 alt="Nightscout Follow Today view in mg/dL on iPhone"
               />
             </div>
@@ -644,7 +675,7 @@
             <div class="fact">
               <h3>Know the limits</h3>
               <p>
-              The app talks to Nightscout only, it does not connect to your CGM or pump. If it's not in Nightscout, it won't show in the app.
+              The app gets its data from Nightscout only, it does not connect to your CGM or pump. If it's not in Nightscout, it won't show in the app.
               </p>
             </div>
             
@@ -660,6 +691,20 @@
             one off automatically at each site change and sensor start, shows how many days are
             left, and can alert you before you run out. Supplies is optional and needs a token that
             can write to your Nightscout site.
+          </p>
+        </div>
+      </section>
+      <section class="section alt" id="ask">
+        <div class="wrap">
+          <div class="eyebrow">Ask</div>
+          <h2>Ask about the data in plain language.</h2>
+          <p class="sectionIntro">
+            The optional Ask tab answers questions like “How did last night go?” or “Why did he drop
+            after dance on Tuesday?” It can check the current reading and Loop’s forecast, go
+            through any stretch of the day, and review the last 7, 14, or 30 days. Ask is powered
+            by Claude, from Anthropic, and uses your own Anthropic API key. Only the data needed
+            to answer is sent, never your Nightscout address or token. It won’t suggest doses or
+            settings, and it isn’t an alarm.
           </p>
         </div>
       </section>
@@ -680,7 +725,7 @@
               </p>
               <div class="gallery iphoneGallery">
                 <figure class="screen">
-                  <div class="screenImage portrait">
+                  <div class="shot phone real">
                     <img
                       src="./iphone-today-mg.png"
                       alt="Today view in mg/dL with glucose graph and status"
@@ -700,7 +745,7 @@
                   <figcaption>Home Screen widget</figcaption>
                 </figure>
                 <figure class="screen">
-                  <div class="screenImage portrait">
+                  <div class="shot phone real">
                     <img
                       src="./iphone-lockscreen-mg.png"
                       alt="Nightscout Follow Live Activity and widgets together on the iPhone Lock Screen in mg/dL"
@@ -710,9 +755,9 @@
                   <figcaption>Lock Screen: Live Activity + widgets</figcaption>
                 </figure>
                 <figure class="screen">
-                  <div class="screenImage portrait">
+                  <div class="shot phone real">
                     <img
-                      src="./iphone-today-mmol.png"
+                      src="./iphone-today-mmol.webp"
                       alt="Nightscout Follow Today view in mmol/L with glucose graph and recent meals"
                       loading="lazy"
                     />
@@ -720,7 +765,7 @@
                   <figcaption>Today · mmol/L</figcaption>
                 </figure>
                 <figure class="screen">
-                  <div class="screenImage portrait">
+                  <div class="shot phone real">
                     <img
                       src="./iphone-patterns-mg.png"
                       alt="Nightscout Follow Patterns view with average glucose, GMI and time in range"
@@ -730,7 +775,7 @@
                   <figcaption>Patterns · mg/dL</figcaption>
                 </figure>
                 <figure class="screen">
-                  <div class="screenImage portrait">
+                  <div class="shot phone real">
                     <img
                       src="./iphone-supplies.png"
                       alt="Nightscout Follow Supplies view with pod and sensor counts, days left, and current device details"
@@ -738,6 +783,16 @@
                     />
                   </div>
                   <figcaption>Manage Supplies</figcaption>
+                </figure>
+                <figure class="screen">
+                  <div class="shot phone real">
+                    <img
+                      src="./iphone-ask.webp"
+                      alt="Nightscout Follow Ask tab with suggested questions and a typed question about a high reading"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption>Ask</figcaption>
                 </figure>
               </div>
             </div>
@@ -923,6 +978,15 @@
           </p>
           <h3>Some of my information appears as raw data in the app</h3>
           <p>There are many different technologies that connect to Nightscout and displaying the data uniformly is challenging. I did my best to capture the most common ones. Please let me know what's missing or what's wrong with your setup on <a href="https://discord.gg/Vz9CQkavTU" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
+          <h3>Does Ask cost anything?</h3>
+          <p>
+            The app is free. Ask is optional and uses your own Anthropic API key; setup walks you
+            through creating one at
+            <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer"
+              >console.anthropic.com</a
+            >. Questions are billed to your Anthropic account, and you can set a monthly spending
+            limit there. Everything else in the app works without it.
+          </p>
           <h3>How do I get support?</h3>
           <p>
             Support happens on the
